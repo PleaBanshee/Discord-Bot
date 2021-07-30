@@ -18,6 +18,17 @@ client.on("message", msg => { // bot commands
       if (args[1] === "lonely") {
         msg.channel.send(`Do not worry, ${client.user} loves you!!! ❤️️`)
       }
+      break;
+    case 'play':
+      if (args[1]) {
+
+      } else {
+        msg.channel.send('Oops! Something went wrong... try again!')
+      }
+      if (!msg.member.voice.channel) {
+        msg.channel.send('You\'re not in a voice channel dummy!')
+      }
+    break;
   }
   if (msg.content === "hello") {
     msg.channel.send( `Hello I'm ${client.user.tag}! Welcome to the server!`);
