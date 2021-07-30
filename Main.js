@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const client = new Discord.Client()
+const client = new Discord.Client() // bot object
 const config = require('dotenv').config()
 
 client.on("ready", () => {
@@ -7,8 +7,8 @@ client.on("ready", () => {
 })
 
 client.on("message", msg => {
-  if (msg.content === "ping") {
-    msg.reply( `Hello I'm ${client.user.tag}!\npong`);
+  if (msg.content === "hello") {
+    msg.reply( `Hello I'm ${client.user.tag}! Welcome to the server!`);
   }
 })
 
