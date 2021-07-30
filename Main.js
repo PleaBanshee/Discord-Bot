@@ -24,6 +24,7 @@ client.on("message", msg => { // bot commands
 
       } else {
         msg.channel.send('Oops! Something went wrong... try again!')
+        return;
       }
       if (!msg.member.voice.channel) {
         msg.channel.send('You\'re not in a voice channel dummy!')
