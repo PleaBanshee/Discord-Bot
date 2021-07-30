@@ -12,7 +12,8 @@ client.on("ready", () => { // executes when running the script
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
-client.on("message", msg => { // bot commands
+// bot commands
+client.on("message", msg =>  {
   let args = msg.content.substring(PREFIX.length).split(" "); // splits entered words with spaces
   switch (args[0]) {
     case 'ping':
@@ -49,19 +50,10 @@ client.on("message", msg => { // bot commands
         msg.member.voice.channel.join().then(function(conn){
           play(conn,msg)
         });
+      }
     break;
   }
 })
+      
 
 client.login(process.env.BOT_TOKEN);
-
-/* case ('feeling'):
-      if (args[1] === "lonely") {
-        msg.channel.send(`Do not worry, ${client.user} loves you!!! ❤️️`)
-      }
-      break;
-
- if (msg.content === "hello") {
-    msg.channel.send( `Hello I'm ${client.user.tag}! Welcome to the server!`);
-  }
-*/
