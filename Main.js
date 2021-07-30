@@ -2,13 +2,24 @@ const Discord = require("discord.js");
 const client = new Discord.Client() // bot object
 const config = require('dotenv').config()
 
-client.on("ready", () => {
+const PREFIX = '!'; // command prefix
+
+client.on("ready", () => { // executes when running the script
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
-client.on("message", msg => {
+client.on("message", msg => { // message the bot
   if (msg.content === "hello") {
     msg.reply( `Hello I'm ${client.user.tag}! Welcome to the server!`);
+  }
+})
+
+client.on("message", msg => { // bot command
+  let args = msg.content.substring(PREFIX.length).split(' '); // splits entered words with spaces
+  switch (args[0]) {
+    case 'ping':
+      msg.reply('pong');
+      break;
   }
 })
 
