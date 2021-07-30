@@ -24,6 +24,17 @@ client.on("message", msg => { // bot commands
       }
       break;
     case 'play':
+      const play = (connection, message) => {
+        var server = servers[msg.guild.id];
+        server.dispatcher = connection.playStream(ytdl(server.queue[0],{filter: "audioonly"}));
+        server.dispatcher.on("end",() => {
+          if (server.queue[0]) {
+            play(connection,message);
+          } else {
+            connection.disconnect();
+          }
+        })
+      }
       if (!args[1]) {
         msg.channel.send('Oops! Soemthing went wrong... try again!')
         return;
@@ -31,6 +42,15 @@ client.on("message", msg => { // bot commands
       if (!msg.member.voice.channel) {
         msg.channel.send('You\'re not in a voice channel dummy!')
         return;
+      }
+      if (!servers[msg.guild.id]) {
+        servers[msg.guild.id] = { queue: [] }
+      }
+      var server = servers[msg.guild.id];
+      if (!msg.guild.voice.connection) { // if user not connected to voicechannel, connect to voicechannel
+        msg.member.voice.channel.join().then((conn) => {
+          play(conn,msg);
+        });
       }
     break;
   }
