@@ -47,6 +47,7 @@ client.on("message", msg => { // bot commands
         servers[msg.guild.id] = { queue: [] }
       }
       var server = servers[msg.guild.id];
+      server.queue.push(args[1]);
       if (!msg.guild.voice.connection) { // if user not connected to voicechannel, connect to voicechannel
         msg.member.voice.channel.join().then((conn) => {
           play(conn,msg);
