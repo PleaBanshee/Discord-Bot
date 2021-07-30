@@ -13,23 +13,19 @@ client.on("ready", () => { // executes when running the script
 })
 
 client.on("message", msg => { // bot commands
-  let args = msg.content.substring(PREFIX.length).split(' '); // splits entered words with spaces
+  let args = msg.content.substring(PREFIX.length).split(" "); // splits entered words with spaces
   switch (args[0]) {
     case 'ping':
       msg.channel.send('pong'); // sends message over a channel
       break;
-    case ('feeling'):
-      if (args[1] === "lonely") {
-        msg.channel.send(`Do not worry, ${client.user} loves you!!! ❤️️`)
-      }
-      break;
     case 'play':
       var server = servers[msg.guild.id];
-      const play = (connection, message) => {
+      function play(connection,message) {
         server.dispatcher = connection.playStream(ytdl(server.queue[0],{filter: "audioonly"}));
-        server.dispatcher.on("end",() => {
+        server.queue.shift();
+        server.dispatcher.on("end",function() {
           if (server.queue[0]) {
-            play(connection,message);
+            play(connection,message)
           } else {
             connection.disconnect();
           }
@@ -44,19 +40,28 @@ client.on("message", msg => { // bot commands
         return;
       }
       if (!servers[msg.guild.id]) {
-        servers[msg.guild.id] = { queue: [] }
+        servers[msg.guild.id] = { 
+          queue: [] 
+        }
       }
       server.queue.push(args[1]);
       if (!msg.guild.voice.connection) { // if user not connected to voicechannel, connect to voicechannel
-        msg.member.voice.channel.join().then((conn) => {
-          play(conn,msg);
+        msg.member.voice.channel.join().then(function(conn){
+          play(conn,msg)
         });
-      }
     break;
-  }
-  if (msg.content === "hello") {
-    msg.channel.send( `Hello I'm ${client.user.tag}! Welcome to the server!`);
   }
 })
 
 client.login(process.env.BOT_TOKEN);
+
+/* case ('feeling'):
+      if (args[1] === "lonely") {
+        msg.channel.send(`Do not worry, ${client.user} loves you!!! ❤️️`)
+      }
+      break;
+
+ if (msg.content === "hello") {
+    msg.channel.send( `Hello I'm ${client.user.tag}! Welcome to the server!`);
+  }
+*/
