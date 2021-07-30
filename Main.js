@@ -39,10 +39,10 @@ client.on("message", msg => { // bot commands
         msg.channel.send('Oops! Soemthing went wrong... try again!')
         return;
       } 
-      if (!msg.member.voice.channel) {
+      /* if (!msg.member.voice.channel) {
         msg.channel.send('You\'re not in a voice channel dummy!')
         return;
-      }
+      } */
       if (!servers[msg.guild.id]) {
         servers[msg.guild.id] = { queue: [] }
       }
