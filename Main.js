@@ -14,7 +14,7 @@ client.on("message", msg => { // bot commands
     case 'ping':
       msg.channel.send('pong'); // sends message over a channel
       break;
-    case (feeling):
+    case ('feeling'):
       if (args[1] === "lonely") {
         msg.channel.send(`Do not worry, ${client.user} loves you!!! ❤️️`)
       }
