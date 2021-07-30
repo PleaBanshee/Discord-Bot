@@ -24,8 +24,8 @@ client.on("message", msg => { // bot commands
       }
       break;
     case 'play':
+      var server = servers[msg.guild.id];
       const play = (connection, message) => {
-        var server = servers[msg.guild.id];
         server.dispatcher = connection.playStream(ytdl(server.queue[0],{filter: "audioonly"}));
         server.dispatcher.on("end",() => {
           if (server.queue[0]) {
@@ -46,7 +46,6 @@ client.on("message", msg => { // bot commands
       if (!servers[msg.guild.id]) {
         servers[msg.guild.id] = { queue: [] }
       }
-      var server = servers[msg.guild.id];
       server.queue.push(args[1]);
       if (!msg.guild.voice.connection) { // if user not connected to voicechannel, connect to voicechannel
         msg.member.voice.channel.join().then((conn) => {
