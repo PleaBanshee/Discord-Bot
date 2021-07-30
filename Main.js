@@ -18,7 +18,7 @@ client.on("message", msg => { // bot command
   let args = msg.content.substring(PREFIX.length).split(' '); // splits entered words with spaces
   switch (args[0]) {
     case 'ping':
-      msg.reply('pong');
+      msg.channel.sendMessage('pong'); // sends message over a channel
       break;
   }
 })
