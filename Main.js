@@ -1,8 +1,12 @@
 const Discord = require("discord.js");
 const client = new Discord.Client() // bot object
 const config = require('dotenv').config()
+const ytdl = require("ytdl-core");
+const opusscript = require("opusscript");
 
 const PREFIX = '!'; // command prefix
+
+var servers = {};
 
 client.on("ready", () => { // executes when running the script
   console.log(`Logged in as ${client.user.tag}!`)
@@ -20,13 +24,13 @@ client.on("message", msg => { // bot commands
       }
       break;
     case 'play':
-      if (args[1]) {
-
+      if (!args[1]) {
+        msg.channel.send('Oops! Soemthing went wrong... try again!')
+        return;
       } 
       if (!msg.member.voice.channel) {
         msg.channel.send('You\'re not in a voice channel dummy!')
-      } else {
-        msg.channel.send('Oops! Soemthing went wrong... try again!')
+        return;
       }
     break;
   }
