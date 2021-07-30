@@ -22,12 +22,11 @@ client.on("message", msg => { // bot commands
     case 'play':
       if (args[1]) {
 
-      } else {
-        msg.channel.send('Oops! Something went wrong... try again!')
-        return;
-      }
+      } 
       if (!msg.member.voice.channel) {
         msg.channel.send('You\'re not in a voice channel dummy!')
+      } else {
+        msg.channel.send('Oops! Soemthing went wrong... try again!')
       }
     break;
   }
