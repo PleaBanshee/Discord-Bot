@@ -18,7 +18,7 @@ client.on("ready", () => { // executes when running the script
 client.on("message", async msg =>  {
   let args = msg.content.substring(PREFIX.length).split(" "); // splits entered words with spaces
   let command = args.shift().toLowerCase();
-  switch (args[0]) {
+  switch (command) {
     case 'ping':
       msg.channel.send('pong'); // sends message over a channel
       break;
