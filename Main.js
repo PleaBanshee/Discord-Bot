@@ -1,37 +1,57 @@
-const Discord = require("discord.js");
-const client = new Discord.Client() // bot object
-const config = require('dotenv').config()
-const { Player } = require("discord-player");
+const discord = require('discord.js');
+const fs = require('fs');
+const client = new discord.Client({
+	autoReconnect: true,
+	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "MESSAGE", "USER"]
+});
+const config = require('./config.json')
 
-// Create a new Player (you don't need any API Key)
-const player = new Player(client);
-// To easily access the player
-client.player = player;
+client.commands = new discord.Collection();
+client.aliases = new discord.Collection();
+client.queue = new Map();
 
-const PREFIX = '!'; // command prefix
 
-client.on("ready", () => { // executes when running the script
-  console.log(`Logged in as ${client.user.tag}!`)
-})
 
-// bot commands
-client.on("message", async msg =>  {
-  let args = msg.content.slice(PREFIX.length).trim().split(/ +/g) // splits entered words with spaces
-  let command = args.shift().toLowerCase();
-  switch (command) {
-    case 'ping':
-      msg.channel.send('pong'); // sends message over a channel
-      break;
-      case 'play':
-        let track = await client.player.play(msg.member.voice.channel,args[0],msg.member.user.tag);
-        msg.channel.send(`Currently playing ${track.name} --- Requested by ${track.requestedBy}`);
-      break;
-      case 'stop':
-        track = await client.player.stop(msg.guild.id);
-        msg.channel.send('PAUSED');
-      break;
+
+const Categories = ["music"]; //Commands => Category => Command
+
+Categories.forEach(async function(Category) { //
+    fs.readdir(`./commands/${Category}`, async function(error, files) {
+      if (error) throw new Error(`Error In Command - Command Handler\n${error}`);
+      files.forEach(async function(file) {
+        if (!file.endsWith(".js")) throw new Error(`A File Does Not Ends With .js - Command Handler!`);
+        let command = require(`./commands/${Category}/${file}`);
+   
+        if (!command.name || !command.aliases) throw new Error(`No Command Name & Command Aliases In A File - Command Handler!`);
+        if (command.name) client.commands.set(command.name, command);
+        if (command.aliases) command.aliases.forEach(aliase => client.aliases.set(aliase, command.name));
+        if (command.aliases.length === 0) command.aliases = null;
+      });
+    });
+});
+
+client.on("message", async message => {
+
+  let Prefix = "!"
+
+  if (message.author.bot || !message.guild || message.webhookID) return;
+
+  if (!message.content.startsWith(Prefix)) return;
+
+  let args = message.content.slice(Prefix.length).trim().split(/ +/g);
+  let cmd = args.shift().toLowerCase();
+
+  let command = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
+
+  if (!command) return console.log(`No Command Found!`);
+
+
+
+  if (command) {
+    command.run(client, message, args);
   }
-})
-      
+});
 
-client.login(process.env.BOT_TOKEN);
+
+
+client.login(process.env.TOKEN).catch(err => console.log(`Invalid Token Provided!`));
