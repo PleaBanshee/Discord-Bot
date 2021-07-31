@@ -16,7 +16,7 @@ client.on("ready", () => { // executes when running the script
 
 // bot commands
 client.on("message", async msg =>  {
-  let args = msg.content.substring(PREFIX.length).split(" "); // splits entered words with spaces
+  let args = msg.content.slice(PREFIX.length).trim().split(/ +/g) // splits entered words with spaces
   let command = args.shift().toLowerCase();
   switch (command) {
     case 'ping':
