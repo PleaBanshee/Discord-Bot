@@ -27,7 +27,7 @@ client.on("message", async msg =>  {
         msg.channel.send(`Currently playing ${track.name} --- Requested by ${track.requestedBy}`);
       break;
       case 'stop':
-        let track = await client.player.stop(msg.guild.id);
+        track = await client.player.stop(msg.guild.id);
         msg.channel.send('PAUSED');
       break;
   }
