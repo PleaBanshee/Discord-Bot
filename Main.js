@@ -50,4 +50,4 @@ client.on("message", async message => {
 
 
 
-client.login(process.env.TOKEN).catch(err => console.log(`Invalid Token Provided!`));
+client.login(process.env.BOT_TOKEN).catch(err => console.log(`Invalid Token Provided!`));
