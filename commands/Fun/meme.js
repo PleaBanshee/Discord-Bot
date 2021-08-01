@@ -3,7 +3,7 @@ const api = require('imageapi.js');
 
 module.exports = {
     name : 'meme',
-    category : fun,
+    category : 'fun',
     cooldown : 5000,
     run: async(client,message) => {
         const subreddits = ['meme','dankmemes','memes'];
