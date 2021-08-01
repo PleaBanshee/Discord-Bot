@@ -13,7 +13,7 @@ client.queue = new Map();
 
 const Categories = ["music"]; //Commands => Category => Command
 
-Categories.forEach(async function(Category) { //
+Categories.forEach(async function(Category) { 
     fs.readdir(`./commands/${Category}`, async function(error, files) {
       if (error) throw new Error(`Error In Command - Command Handler\n${error}`);
       files.forEach(async function(file) {
@@ -27,10 +27,6 @@ Categories.forEach(async function(Category) { //
       });
     });
 });
-
-/* client.on("message", async message => {
-  meme.run(client,message);
-}) */
 
 client.on("message", async message => {
 
@@ -47,9 +43,9 @@ client.on("message", async message => {
 
   if (!command) return console.log(`No Command Found!`);
 
-  if (command.indexOf('meme') > -1) {
+  /* if (command.indexOf('meme') > -1) {
     meme.run(client,message);
-  }
+  } */
 
   if (command) {
     command.run(client, message, args);
