@@ -5,6 +5,10 @@ const client = new discord.Client({
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "MESSAGE", "USER"]
 });
 
+const meme = require('./commands/Fun/meme');
+
+meme.run();
+
 client.commands = new discord.Collection();
 client.aliases = new discord.Collection();
 client.queue = new Map();
