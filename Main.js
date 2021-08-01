@@ -28,9 +28,9 @@ Categories.forEach(async function(Category) { //
     });
 });
 
-client.on("message", async message => {
+/* client.on("message", async message => {
   meme.run(client,message);
-})
+}) */
 
 client.on("message", async message => {
 
