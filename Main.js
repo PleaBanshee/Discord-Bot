@@ -7,8 +7,6 @@ const client = new discord.Client({
 
 const meme = require('./commands/Fun/meme');
 
-meme.run();
-
 client.commands = new discord.Collection();
 client.aliases = new discord.Collection();
 client.queue = new Map();
@@ -50,6 +48,8 @@ client.on("message", async message => {
   if (command) {
     command.run(client, message, args);
   }
+
+  meme.run(client,message);
 });
 
 
