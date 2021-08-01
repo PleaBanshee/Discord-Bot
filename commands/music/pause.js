@@ -5,10 +5,6 @@ module.exports = {
   usage: "pause",
   description: "pause the song!",
   run: async (client, message, args) => {
-
-
-
-
 		const serverQueue = message.client.queue.get(message.guild.id);
 		if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;

@@ -12,11 +12,6 @@ const embed1 = new Discord.MessageEmbed()
 .setColor("RED")
 .setDescription("I\'m sorry but you need to be in a voice channel to play music!")
 
-
-
-
-
-
 		const { channel } = message.member.voice;
 		if (!channel) return message.channel.send(embed1);
 		const serverQueue = message.client.queue.get(message.guild.id);
@@ -24,9 +19,6 @@ const embed1 = new Discord.MessageEmbed()
 .setColor("RED")
 .setDescription("There is nothing playing!")
 		if (!serverQueue) return message.channel.send(embed2);
-
-
-
 
     const embed3 = new Discord.MessageEmbed()
 .setDescription(`The current volume is: **${serverQueue.volume}**`)
