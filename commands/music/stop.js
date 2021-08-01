@@ -5,8 +5,6 @@ module.exports = {
   usage: "stop",
   description: "stop a song",
   run: async (client, message, args) => {
-
-    
     const embed1 = new Discord.MessageEmbed()
     .setDescription("I'm sorry but you need to be in a voice channel to play music!")
     .setColor("RED")

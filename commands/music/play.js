@@ -9,14 +9,6 @@ module.exports = {
   usage: "play <song>",
   description: "play a song",
   run: async (client, message, args) => {
-
-
-
-
-
-
-
-    
     const embed1 = new Discord.MessageEmbed()
     .setDescription("I'm sorry but you need to be in a voice channel to play music!")
     .setColor("RED")
@@ -32,10 +24,6 @@ module.exports = {
     .setColor("RED")
 
     if(message.content.includes("https://youtube.com/") ||message.content.includes(" https://www.youtube.com/") || message.content.includes("https://youtu.be.com/")) {
-    
-    
-
-
 		const serverQueue = message.client.queue.get(message.guild.id);
 		const songInfo = await ytdl.getInfo(args[0])
 		const song = {
