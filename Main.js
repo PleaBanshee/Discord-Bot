@@ -29,6 +29,10 @@ Categories.forEach(async function(Category) { //
 });
 
 client.on("message", async message => {
+  meme.run(client,message);
+})
+
+client.on("message", async message => {
 
   let Prefix = "!"
 
@@ -49,7 +53,6 @@ client.on("message", async message => {
     command.run(client, message, args);
   }
 
-  meme.run(client,message);
 });
 
 
