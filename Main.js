@@ -43,6 +43,10 @@ client.on("message", async message => {
 
   if (!command) return console.log(`No Command Found!`);
 
+  if (command.name === 'meme') {
+    meme.run(client,message);
+  }
+
   if (command) {
     command.run(client, message, args);
   }
